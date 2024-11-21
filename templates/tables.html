@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extracted Tables</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Center the heading */
+        h1 {
+            text-align: center; /* Center the heading */
+            margin-top: 20px; /* Add some margin to the top */
+            padding-top: 50px;
+        }
+
+        /* Container for the filter and table */
+        .table-container {
+            width: 90%; /* Adjust the width for mobile */
+            margin: 20px auto; /* Center the table and filter container */
+            max-width: 1200px; /* Max width to prevent the table from stretching too wide */
+        }
+
+        /* Styling for the filter input field */
+        #filterInput {
+            width: 200px; /* Make the filter input span the width of the table */
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 16px;
+            box-sizing: border-box; /* Ensures padding doesn't affect the width */
+        }
+
+        /* Styling for the table */
+        table {
+            width: 100%; /* Make the table responsive */
+            border-collapse: collapse;
+            table-layout: fixed; /* Ensures columns are evenly spaced */
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            word-wrap: break-word; /* Handle long words */
+        }
+
+        /* Media query for smaller screens (Mobile devices) */
+        @media (max-width: 768px) {
+            /* Adjust the heading font size */
+            h1 {
+                font-size: 24px;
+            }
+
+            /* Stack the table headers above each column when viewed on mobile */
+            table, th, td {
+                font-size: 14px; /* Adjust font size */
+            }
+
+            /* Make filter input smaller on mobile */
+            #filterInput {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            /* Make the table scrollable horizontally for mobile view */
+            .table-container {
+                overflow-x: auto;
+            }
+        }
+
+        /* Media query for very small screens (e.g., Portrait mode phones) */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 20px; /* Smaller heading font size */
+            }
+
+            /* Further reduce table font size on very small screens */
+            table, th, td {
+                font-size: 12px; 
+            }
+
+            #filterInput {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Heading for the page -->
+    <h1>Customs Table</h1>
+
+    <!-- Table Container -->
+    <div class="table-container">
+        <!-- Universal Filter Above the Table -->
+        <input type="text" id="filterInput" placeholder="Search..." onkeyup="filterTable()" />
+
+        <!-- Check if there is any data to display -->
+        {% if rows %}
+            <!-- Table -->
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                        <th>Column 3</th>
+                        <th>Column 4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                        <tr>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <!-- If no data, show 'Data Not Found' message -->
+            <p style="text-align: center; font-size: 18px; color: #888;">Data Not Found</p>
+        {% endif %}
+    </div>
+
+    <script>
+        // Function to filter the table based on the input in the filter box
+        function filterTable() {
+            let input = document.getElementById('filterInput');
+            let filter = input.value.toLowerCase();  // Get the input and convert to lowercase
+            let table = document.getElementById('dataTable');
+            let rows = table.getElementsByTagName('tr');  // Get all rows in the table
+
+            // Loop through all table rows (skip the first row which is the header)
+            for (let i = 1; i < rows.length; i++) {
+                let cells = rows[i].getElementsByTagName('td');  // Get all cells in the row
+                let rowContainsFilter = false;  // Flag to check if the row matches the filter
+
+                // Loop through each cell in the row
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].textContent.toLowerCase().indexOf(filter) > -1) {
+                        rowContainsFilter = true;  // If filter is found in any column, show the row
+                    }
+                }
+
+                // If rowContainsFilter is true, show the row, otherwise hide it
+                if (rowContainsFilter) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PDF</title>
+    <style>
+        /* General Reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Center the content on the page */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;  /* Full viewport height */
+            background-color: #f4f4f4;
+        }
+
+        /* Form container styling */
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;  /* Form's max width */
+            text-align: center;
+        }
+
+        /* Title */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Upload input styling */
+        input[type="file"] {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%; /* Make the file input responsive */
+            max-width: 350px; /* Prevent file input from stretching too wide */
+        }
+
+        /* Submit button styling */
+        button {
+            padding: 12px 20px;
+            background-color: #131eb4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;  /* Make button responsive */
+            max-width: 350px; /* Prevent button from stretching too wide */
+        }
+
+        button:hover {
+            background-color: #445794;
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 20px;
+                width: 90%;  /* Allow form to take 90% of the screen width */
+            }
+
+            h1 {
+                font-size: 20px;  /* Smaller title font size */
+            }
+
+            input[type="file"], button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Centered container for form -->
+    <div class="container">
+        <div class="form-container">
+            <h1>Upload Customs PDF</h1>
+
+            <!-- Form for file upload -->
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="pdfFile" accept="application/pdf" required>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
